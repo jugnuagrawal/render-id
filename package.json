@@ -1,0 +1,25 @@
+{
+  "name": "render-id",
+  "version": "1.0.0",
+  "description": "Converts a string pattern to a string by replacing all the '#' to '0' after replacing the next counter number.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jugnuagrawal/render-id.git"
+  },
+  "keywords": [
+    "render",
+    "pattern",
+    "id",
+    "convert"
+  ],
+  "author": "Jugnu Agrawal",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jugnuagrawal/render-id/issues"
+  },
+  "homepage": "https://github.com/jugnuagrawal/render-id#readme"
+}
