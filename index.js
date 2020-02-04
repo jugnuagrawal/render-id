@@ -11,6 +11,11 @@ const e = {};
  * @return {string} ID made from the pattern.
  */
 e.render = function (pattern, nextNumber) {
+    const match = pattern.match(/(.*)\$\{(.*)\}(.*)/);
+    if (match) {
+        const year = getFinancialYear(match[2]);
+        pattern = pattern.replace(/(.*)\$\{(.*)\}(.*)/, '$1' + year + '$3');
+    }
     let parsedString = pattern;
     let tempNext = nextNumber;
     let length = 0;
@@ -22,6 +27,7 @@ e.render = function (pattern, nextNumber) {
             length++;
         }
     }
+
     while (tempNext > 0) {
         tempNext = Math.floor(tempNext / 10);
         nextLen += 1;
@@ -47,7 +53,40 @@ e.render = function (pattern, nextNumber) {
     } else {
         parsedString = pattern + nextNumber;
     }
+
     return parsedString;
 };
+
+function getFinancialYear(pattern) {
+    const now = new Date();
+    const currYear = now.getFullYear();
+    const currMonth = now.getMonth() + 1;
+    const currDate = now.getDate();
+    if (pattern == 'FY-IN') {
+        if (currMonth > 3) {
+            return currYear + '-' + (currYear + 1);
+        } else {
+            return (currYear - 1) + '-' + currYear;
+        }
+    } else if (pattern == 'FY-US') {
+        if (currMonth > 9) {
+            return currYear + '-' + (currYear + 1);
+        } else {
+            return (currYear - 1) + '-' + currYear;
+        }
+    } else if (pattern == 'FY-GB') {
+        if (currMonth > 4) {
+            return currYear + '-' + (currYear + 1);
+        } else if (currMonth < 4) {
+            return (currYear - 1) + '-' + currYear;
+        } else if (currDate > 5) {
+            return currYear + '-' + (currYear + 1);
+        } else {
+            return (currYear - 1) + '-' + currYear;
+        }
+    } else {
+        return currYear + '-' + (currYear + 1);
+    }
+}
 
 module.exports = e;
