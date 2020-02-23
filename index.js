@@ -59,7 +59,7 @@ e.render = function (pattern, nextNumber) {
 
 function getFinancialYear(pattern) {
     const now = new Date();
-    const currYear = now.getFullYear();
+    const currYear = now.getFullYear() % 100;
     const currMonth = now.getMonth() + 1;
     const currDate = now.getDate();
     if (pattern == 'FY-IN') {
