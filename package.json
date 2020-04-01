@@ -1,6 +1,6 @@
 {
   "name": "render-id",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Converts a string pattern to a string by replacing all the '#' to '0' after replacing the next counter number.",
   "main": "index.js",
   "scripts": {
