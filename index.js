@@ -8,12 +8,13 @@ const e = {};
 /**
  * @param {string} pattern The pattern of the ID
  * @param {number} nextNumber Next incremented counter number for ID
+ * @param {string | number | date} [date] The date for which Fiscal Year.
  * @return {string} ID made from the pattern.
  */
-e.render = function (pattern, nextNumber) {
+e.render = function (pattern, nextNumber, date) {
     const match = pattern.match(/(.*)\$\{(.*)\}(.*)/);
     if (match) {
-        const year = getFinancialYear(match[2]);
+        const year = getFinancialYear(match[2], date);
         pattern = pattern.replace(/(.*)\$\{(.*)\}(.*)/, '$1' + year + '$3');
     }
     let parsedString = pattern;
@@ -57,8 +58,11 @@ e.render = function (pattern, nextNumber) {
     return parsedString;
 };
 
-function getFinancialYear(pattern) {
-    const now = new Date();
+function getFinancialYear(pattern, date) {
+    if (!date) {
+        date = Date.now();
+    }
+    const now = new Date(date);
     const currYear = now.getFullYear() % 100;
     const currMonth = now.getMonth() + 1;
     const currDate = now.getDate();
